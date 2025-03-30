@@ -27,5 +27,6 @@ This project implements a secure preprocessing pipeline to support ethical AI co
 ---
 
 ## 📸 Poster
-[Link or screenshot image can be added here if hosted]
+https://docs.google.com/presentation/d/15ZxO1iGfJwYrER40Uyo3J-L9i6VJ0F7kRyd7W1wW0E4/edit?usp=sharing
+
 
