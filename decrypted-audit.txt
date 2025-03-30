@@ -1,0 +1,4 @@
+[1743197727688.9053] Role: admin | Action: decryption+mask+normalize | Input: ssn: 123-45-6789, name: Alice, salary: 100000 | Output: ssn: 123456789, name: Alice, salary: 100000
+[1743197727693.5388] Role: manager | Action: decryption+mask+normalize | Input: name: Alice, salary: 100000 | Output: name: Alice, salary: 100000
+[1743197727697.0032] Role: analyst | Action: decryption+mask+normalize | Input: name: Alice, salary: 100000 | Output: name: Alice, salary: 100000
+[1743197727701.4746] Role: viewer | Action: decryption+mask+normalize | Input: name: Alice | Output: name: Alice

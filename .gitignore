@@ -1,0 +1,25 @@
+# Ignore sensitive and intermediate files
+hashed.txt
+audit.txt
+audit-hash.txt
+audit-encrypted.txt
+input.txt
+input.csv
+input-decrypted.csv
+encrypted-input.csv
+decrypted.txt
+encrypted.txt
+output.csv
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Racket autosave and swap
+*.rkt~
+*.swp
+
+# macOS junk
+.DS_Store
