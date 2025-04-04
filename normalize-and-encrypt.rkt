@@ -94,11 +94,40 @@
          (define k (car kv))
          (define v (cdr kv))
          (cond
-           [(string=? k "name")   (cons k (string-titlecase v))]
-           [(string=? k "salary") (with-handlers ([exn:fail? (lambda (_) (cons k v))]) (cons k (number->string (string->number (string-replace v "," "")))))]
-           [(string=? k "ssn")    (cons k (string-replace v "-" ""))]
-           [else                  (cons k v)]))
+           ;; Normalize name field
+           [(string=? k "name")
+            (let ([clean-name (string-titlecase v)])
+              (displayln (format "✅ Normalized Name: ~a → ~a" v clean-name))
+              (cons k clean-name))]
+
+           ;; Normalize salary field with logging
+           [(string=? k "salary")
+            (with-handlers ([exn:fail?
+                             (lambda (_)
+                               (displayln (format "⚠️ Invalid salary value: ~a" v))
+                               (cons k v))])
+              (let* ([clean-salary (string-replace v "," "")]
+                     [numeric-salary (string->number clean-salary)])
+                (if numeric-salary
+                    (let ([formatted-salary (number->string numeric-salary)])
+                      (displayln (format "✅ Normalized Salary: ~a → ~a" v formatted-salary))
+                      (cons k formatted-salary))
+                    (begin
+                      (displayln (format "⚠️ Salary not numeric: ~a" v))
+                      (cons k v)))))]
+
+           ;; Normalize SSN field
+           [(string=? k "ssn")
+            (let ([clean-ssn (string-replace v "-" "")])
+              (displayln (format "✅ Normalized SSN: ~a → ~a" v clean-ssn))
+              (cons k clean-ssn))]
+
+           ;; Preserve unknown fields
+           [else
+            (cons k v)]))
        record))
+
+
 
 ;; 📝 Log each transformation with role, input/output, and action
 (define (log-transformation user-role action input output)
@@ -139,7 +168,6 @@
        (lambda (row)
          (define fields (string-split row ","))
          (displayln (format "📄 Raw Row Fields: ~a" fields))
-
          (define parsed-record
   (map (lambda (kv)
          (let ([parts (string-split (string-trim kv) ":")])
